@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPUTR Purwakarta - Dinas Pekerjaan Umum dan Tata Ruang</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome 6 (ikon modern) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- AOS (Animate On Scroll) Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Kustomisasi tema Tailwind (warna biru, kuning, putih) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1E3A8A', // Biru gelap (khas pemerintah)
+                        secondary: '#FBBF24', // Kuning
+                        'primary-light': '#3B82F6', // Biru lebih terang untuk aksen
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* CSS Kustom untuk animasi dan efek tambahan */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Hero section dengan overlay gelap dan background video */
+        .hero {
+            position: relative;
+            background: url('https://assets.promediateknologi.id/crop/0x0:0x0/1200x0/webp/photo/p3/236/2025/08/21/dputr-199238778.jpg') center/cover no-repeat;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            color: white;
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); /* Dark overlay seperti di contoh */
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        /* Efek hover pada card */
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        /* Navbar transparan ke solid */
+        .navbar {
+            transition: background-color 0.3s ease, padding 0.3s ease;
+            background-color: transparent;
+            padding: 1.5rem 0;
+        }
+        .navbar.scrolled {
+            background-color: white;
+            padding: 0.75rem 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .navbar.scrolled .nav-link {
+            color: #1E3A8A;
+        }
+        .navbar.scrolled .text-white {
+            color: #1E3A8A;
+        }
+        .nav-link {
+            transition: color 0.2s ease;
+            color: white;
+            font-weight: 500;
+        }
+        .nav-link:hover {
+            color: #FBBF24;
+        }
+        .btn-cta {
+            transition: all 0.3s ease;
+        }
+        /* Footer styling */
+        .footer-icon {
+            transition: color 0.2s ease;
+        }
+        .footer-icon:hover {
+            color: #FBBF24;
+        }
+        /* Animasi fade-in untuk elemen yang discroll */
+        [data-aos] {
+            pointer-events: none;
+        }
+        [data-aos].aos-animate {
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="navbar fixed w-full z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 flex items-center justify-between">
+            <!-- Logo dan Nama Dinas -->
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-secondary rounded-lg flex items-center justify-center">
+                    <i class="fas fa-hard-hat text-primary text-2xl"></i>
+                </div>
+                <span class="text-white font-bold text-xl tracking-tight">DPUTR PURWAKARTA</span>
+            </div>
+            <!-- Menu Desktop -->
+            <div class="hidden md:flex space-x-8">
+                <a href="#beranda" class="nav-link">Beranda</a>
+                <a href="#profil" class="nav-link">Profil</a>
+                <a href="#layanan" class="nav-link">Layanan</a>
+                <a href="#proyek" class="nav-link">Informasi Proyek</a>
+                <a href="#berita" class="nav-link">Berita</a>
+                <a href="#kontak" class="nav-link">Kontak</a>
+            </div>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-sm mt-2 py-4 px-6 rounded-lg mx-4 shadow-lg">
+            <a href="#beranda" class="block py-2 text-primary hover:text-secondary transition">Beranda</a>
+            <a href="#profil" class="block py-2 text-primary hover:text-secondary transition">Profil</a>
+            <a href="#layanan" class="block py-2 text-primary hover:text-secondary transition">Layanan</a>
+            <a href="#proyek" class="block py-2 text-primary hover:text-secondary transition">Informasi Proyek</a>
+            <a href="#berita" class="block py-2 text-primary hover:text-secondary transition">Berita</a>
+            <a href="#kontak" class="block py-2 text-primary hover:text-secondary transition">Kontak</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="beranda" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content container mx-auto px-6 text-center md:text-left">
+            <div class="max-w-3xl" data-aos="fade-up" data-aos-duration="1000">
+                <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-4">
+                    DPUTR PURWAKARTA
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 text-gray-200">
+                    Membangun Infrastruktur, Menata Ruang, Melayani Masyarakat
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center md:justify-start">
+                    <a href="#layanan" class="btn-cta bg-secondary text-primary font-bold py-3 px-8 rounded-lg hover:bg-yellow-400 hover:shadow-lg text-center">
+                        <i class="fas fa-cog mr-2"></i>Lihat Layanan
+                    </a>
+                    <a href="#proyek" class="btn-cta border-2 border-white text-white font-bold py-3 px-8 rounded-lg hover:bg-white hover:text-primary transition text-center">
+                        <i class="fas fa-hard-hat mr-2"></i>Informasi Proyek
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profil Singkat -->
+    <section id="profil" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-bold text-primary mb-4">Tentang DPUTR Purwakarta</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Dinas Pekerjaan Umum dan Tata Ruang Kabupaten Purwakarta berkomitmen mewujudkan infrastruktur yang berkualitas dan tata ruang yang berkelanjutan untuk kesejahteraan masyarakat.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Ikon 1: Infrastruktur Jalan -->
+                <div class="text-center p-6 card-hover rounded-xl border border-gray-100 hover:border-primary-light transition" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-road text-primary text-4xl"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-2 text-primary">Infrastruktur Jalan</h3>
+                    <p class="text-gray-600">Pembangunan dan pemeliharaan jalan & jembatan untuk konektivitas wilayah.</p>
+                </div>
+                <!-- Ikon 2: Jembatan -->
+                <div class="text-center p-6 card-hover rounded-xl border border-gray-100 hover:border-primary-light transition" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-bridge text-primary text-4xl"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-2 text-primary">Konstruksi Jembatan</h3>
+                    <p class="text-gray-600">Pembangunan jembatan yang kokoh dan aman untuk masyarakat.</p>
+                </div>
+                <!-- Ikon 3: Sumber Daya Air -->
+                <div class="text-center p-6 card-hover rounded-xl border border-gray-100 hover:border-primary-light transition" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-water text-primary text-4xl"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-2 text-primary">Sumber Daya Air</h3>
+                    <p class="text-gray-600">Pengelolaan drainase, irigasi, dan sumber daya air terpadu.</p>
+                </div>
+                <!-- Ikon 4: Tata Ruang -->
+                <div class="text-center p-6 card-hover rounded-xl border border-gray-100 hover:border-primary-light transition" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-draw-polygon text-primary text-4xl"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-2 text-primary">Penataan Ruang</h3>
+                    <p class="text-gray-600">Perencanaan tata ruang yang terstruktur dan ramah lingkungan.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Layanan Utama -->
+    <section id="layanan" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-bold text-primary mb-4">Layanan Utama Kami</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Berbagai layanan unggulan untuk memenuhi kebutuhan infrastruktur dan tata ruang di Kabupaten Purwakarta.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card Layanan 1 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="h-2 bg-primary"></div>
+                    <div class="p-6">
+                        <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-road text-primary text-3xl"></i>
+                        </div>
+                        <h3 class="font-bold text-xl mb-2 text-primary">Pembangunan & Pemeliharaan Jalan</h3>
+                        <p class="text-gray-600 mb-4">Pembangunan jalan baru, peningkatan struktur, dan pemeliharaan rutin jalan kabupaten.</p>
+                        <a href="#" class="text-secondary font-semibold hover:text-primary transition inline-flex items-center">
+                            Selengkapnya <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Card Layanan 2 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="h-2 bg-secondary"></div>
+                    <div class="p-6">
+                        <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-water text-primary text-3xl"></i>
+                        </div>
+                        <h3 class="font-bold text-xl mb-2 text-primary">Drainase & Sumber Daya Air</h3>
+                        <p class="text-gray-600 mb-4">Normalisasi sungai, pembangunan drainase perkotaan, dan pengendalian banjir.</p>
+                        <a href="#" class="text-secondary font-semibold hover:text-primary transition inline-flex items-center">
+                            Selengkapnya <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Card Layanan 3 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="h-2 bg-primary"></div>
+                    <div class="p-6">
+                        <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-draw-polygon text-primary text-3xl"></i>
+                        </div>
+                        <h3 class="font-bold text-xl mb-2 text-primary">Penataan Ruang</h3>
+                        <p class="text-gray-600 mb-4">Penyusunan Rencana Tata Ruang Wilayah (RTRW) dan pengendalian pemanfaatan ruang.</p>
+                        <a href="#" class="text-secondary font-semibold hover:text-primary transition inline-flex items-center">
+                            Selengkapnya <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Card Layanan 4 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="h-2 bg-secondary"></div>
+                    <div class="p-6">
+                        <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-clipboard-check text-primary text-3xl"></i>
+                        </div>
+                        <h3 class="font-bold text-xl mb-2 text-primary">Pengawasan Proyek</h3>
+                        <p class="text-gray-600 mb-4">Pengawasan ketat terhadap proyek konstruksi agar sesuai spesifikasi dan tepat waktu.</p>
+                        <a href="#" class="text-secondary font-semibold hover:text-primary transition inline-flex items-center">
+                            Selengkapnya <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Informasi Proyek (dengan tabel modern) -->
+    <section id="proyek" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-bold text-primary mb-4">Informasi Proyek Terkini</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Data proyek infrastruktur yang sedang dan akan dilaksanakan oleh DPUTR Purwakarta.</p>
+            </div>
+            <div class="overflow-x-auto bg-white rounded-xl shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-primary">
+                        <tr>
+                            <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Nama Proyek</th>
+                            <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Lokasi</th>
+                            <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Tahun</th>
+                            <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr class="hover:bg-gray-50 transition" data-aos="fade-right" data-aos-offset="10">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Peningkatan Jalan Cisaat - Sukatani</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Kec. Sukatani</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2025</td>
+                            <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Dalam Progres</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition" data-aos="fade-right" data-aos-delay="100">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Pembangunan Jembatan Ciganea</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Kec. Plered</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2024-2025</td>
+                            <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Perencanaan</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition" data-aos="fade-right" data-aos-delay="200">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Normalisasi Drainase Kota Purwakarta</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Kec. Purwakarta</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2024-2025</td>
+                            <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Tender</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition" data-aos="fade-right" data-aos-delay="300">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Peningkatan Jalan Lingkar Selatan</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Kec. Bungursari</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2025</td>
+                            <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Dalam Progres</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-center mt-8">
+                <a href="#" class="inline-flex items-center text-primary font-semibold hover:text-secondary transition">
+                    Lihat Semua Proyek <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Berita & Pengumuman (seperti portal berita) -->
+    <section id="berita" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-bold text-primary mb-4">Berita & Pengumuman</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Informasi terbaru seputar kegiatan, proyek, dan layanan DPUTR Purwakarta.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card Berita 1 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="100">
+                    <img class="h-48 w-full object-cover" src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Pembangunan Jalan">
+                    <div class="p-6">
+                        <div class="text-sm text-secondary mb-2"><i class="far fa-calendar-alt mr-1"></i> 15 Mei 2025</div>
+                        <h3 class="font-bold text-xl mb-2 text-primary">Kick Off Pembangunan Jalan Poros Kecamatan</h3>
+                        <p class="text-gray-600 mb-4">Proyek peningkatan jalan poros yang menghubungkan 3 kecamatan resmi dimulai.</p>
+                        <a href="#" class="text-secondary font-semibold hover:text-primary transition inline-flex items-center">
+                            Baca Selengkapnya <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Card Berita 2 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="200">
+                    <img class="h-48 w-full object-cover" src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Rapat Koordinasi">
+                    <div class="p-6">
+                        <div class="text-sm text-secondary mb-2"><i class="far fa-calendar-alt mr-1"></i> 2 Mei 2025</div>
+                        <h3 class="font-bold text-xl mb-2 text-primary">Rakor Penataan Ruang Wilayah Timur</h3>
+                        <p class="text-gray-600 mb-4">Membahas rencana detail tata ruang (RDTR) untuk kawasan timur Purwakarta.</p>
+                        <a href="#" class="text-secondary font-semibold hover:text-primary transition inline-flex items-center">
+                            Baca Selengkapnya <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Card Berita 3 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="300">
+                    <img class="h-48 w-full object-cover" src="https://images.unsplash.com/photo-1577962917302-c4ebc8567d3d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Pengumuman Tender">
+                    <div class="p-6">
+                        <div class="text-sm text-secondary mb-2"><i class="far fa-calendar-alt mr-1"></i> 20 April 2025</div>
+                        <h3 class="font-bold text-xl mb-2 text-primary">Pengumuman Tender Proyek Drainase</h3>
+                        <p class="text-gray-600 mb-4">Tender paket pekerjaan pembangunan drainase perkotaan tahap II dibuka.</p>
+                        <a href="#" class="text-secondary font-semibold hover:text-primary transition inline-flex items-center">
+                            Baca Selengkapnya <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Kontak -->
+    <footer id="kontak" class="bg-primary text-white pt-16 pb-8">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- Alamat -->
+                <div data-aos="fade-right">
+                    <h3 class="text-xl font-bold mb-4 flex items-center"><i class="fas fa-map-marker-alt mr-2 text-secondary"></i> Alamat</h3>
+                    <p class="text-gray-300 leading-relaxed">
+                        Dinas Pekerjaan Umum dan Tata Ruang<br>
+                        Jl. Taman Pahlawan, Nagri Kaler, Kec. Purwakarta, Kabupaten Purwakarta<br>
+                        Jawa Barat 41115
+                    </p>
+                </div>
+                <!-- Kontak -->
+                <div data-aos="fade-right" data-aos-delay="100">
+                    <h3 class="text-xl font-bold mb-4 flex items-center"><i class="fas fa-phone-alt mr-2 text-secondary"></i> Kontak</h3>
+                    <p class="text-gray-300 mb-2"><i class="fas fa-phone mr-2"></i> (0264) 223651</p>
+                    <p class="text-gray-300 mb-2"><i class="fas fa-envelope mr-2"></i> dputr@purwakartakab.go.id</p>
+                    <p class="text-gray-300"><i class="fas fa-globe mr-2"></i> www.dputr.purwakartakab.go.id</p>
+                </div>
+                <!-- Media Sosial -->
+                <div data-aos="fade-right" data-aos-delay="200">
+                    <h3 class="text-xl font-bold mb-4 flex items-center"><i class="fas fa-share-alt mr-2 text-secondary"></i> Media Sosial</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="footer-icon text-gray-300 hover:text-secondary text-2xl"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="footer-icon text-gray-300 hover:text-secondary text-2xl"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="footer-icon text-gray-300 hover:text-secondary text-2xl"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="footer-icon text-gray-300 hover:text-secondary text-2xl"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <!-- Jam Layanan -->
+                <div data-aos="fade-right" data-aos-delay="300">
+                    <h3 class="text-xl font-bold mb-4 flex items-center"><i class="fas fa-clock mr-2 text-secondary"></i> Jam Layanan</h3>
+                    <p class="text-gray-300">Senin - Kamis: 08.00 - 15.30</p>
+                    <p class="text-gray-300">Jumat: 08.00 - 16.30</p>
+                    <p class="text-gray-300 mt-2">Sabtu - Minggu: Libur</p>
+                     <p class="text-gray-300 mt-2">Puasa : Libur gaji buta</p>
+                </div>
+            </div>
+            <!-- Copyright -->
+            <div class="border-t border-gray-700 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 Dinas Pekerjaan Umum dan Tata Ruang Kabupaten Purwakarta. All rights reserved.</p>
+                <p class="mt-2 text-sm">Website resmi ini dikembangkan untuk memberikan informasi terpercaya kepada masyarakat.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script AOS (Animate on Scroll) -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Script Kustom -->
+    <script>
+        // Inisialisasi AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100,
+        });
+
+        // Navbar berubah saat scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+                // Ubah warna teks menu menjadi biru tua saat navbar putih
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.style.color = '#1E3A8A';
+                });
+            } else {
+                navbar.classList.remove('scrolled');
+                // Kembalikan warna teks menu menjadi putih saat navbar transparan
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.style.color = 'white';
+                });
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Tutup mobile menu saat link diklik
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Smooth scroll untuk semua anchor link
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
